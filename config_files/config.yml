@@ -1,0 +1,198 @@
+# Get every variable needs a value and "- help"
+
+# System pipeline preferences
+preprocess:
+  - false
+  - help: "Should I preprocess the ae?"
+autoencoder:
+  - false
+  - help: "Should I use the autoencoder to encode the ae?"
+build_environment:
+  - false
+  - help: "Should I build the graph dataset for the environment?"
+train:
+  - false
+  - help: "Should I perform training?"
+test:
+  - true
+  - help: "Should I perform testing?"
+
+# Training hyperparameters
+buffer_size:
+  - 10
+  - help: "Size of the learning buffer"
+result_logging_freq:
+  - 30
+  - help: "Frequency of logging results."
+n_epochs:
+  - 200
+  - help: "Number of epochs."
+n_reward_running_average:
+  - 100
+  - help: "Number of previous rewards to be taken into account when calculating the running reward."
+test_folder:
+  - 244
+  - help: "Experiment number from which I will load testing models."
+
+
+# region YAML HYPERPARAMETERS
+# YAML Hyperparameters (used only in this file, not parsed to the code)
+_dataset_root_folder: &_dataset_root_folder ../Datasets/dataset_v2
+_results_root_folder: &_results_root_folder ../Results/SystemEval
+# endregion
+
+# Preprocessing of the dataset
+dataset_version:
+  - 'dataset_v2'
+  - help: "Version of the dataset used."
+excel_filepath:
+  - !join [*_dataset_root_folder, '/0_raw_data/dataset.xlsx']
+  - help: "Path to the Excel spreadsheet of the ae."
+save_directory:
+  - !join [*_dataset_root_folder, '/preprocessed_data']
+  - help: "Path to the directory where to save preprocessed ae."
+yaml_stocks_filepath:
+  - 'stock_names.yml'
+  - help: "Filepath to the YAML file with the list of stocks."
+
+# Folder paths
+dataset_folderpath:
+  - !join [*_dataset_root_folder, '/preprocessed_data']
+  - help: "Path to the dataset folder."
+env_folderpath:
+  - !join [*_dataset_root_folder, '/environment']
+  - help: "Path to the environment folder."
+stocknames_config_filepath:
+  - 'config_files/stock_names.yml'
+  - help: "Path to the list of stock names."
+current_config_filepath:
+  - 'config_files/config.yml'
+  - help: "Path to the current file. (do not change!)"
+
+# Date intervals
+train_start_date:
+  - '2002-01-02'
+  - help: "Starting date for training period."
+train_end_date:
+  - '2002-10-02'
+  - help: "Ending date for training period."
+test_start_date:
+  - '2002-01-02'
+  - help: "Starting date for testing period."
+test_end_date:
+  - '2002-10-02'
+  - help: "Ending date for testing period."
+
+# Graph dataset
+graph_name:
+  - 'stock_graph'
+  - help: "Name of the graph dataset."
+
+# Reinforcement learning
+gamma:
+  - 0.99
+  - help: "Gamma for temporal difference equation."
+lr_a:
+  - 0.01
+  - help: "Learning rate for actor."
+lr_c:
+  - 0.01
+  - help: "Learning rate for critic."
+cpt_dir:
+  - !join [*_results_root_folder, '/Agent/models']
+  - help: "Save RL model folder."
+ma_score:
+  - 50
+  - help: "Moving average score to track progress."
+print_freq:
+  - 20
+  - help: "Frequency of iterations to print the progress."
+batch_size:
+  - 1
+  - help: "Batch size for RL deep network."
+train_load_checkpoint:
+  - false
+  - help: "Should I load the model before starting training?"
+weight_init_method:
+  - default
+  - help: "How do you want to initialize the ae? (default=normal/uniform/xavier)"
+
+# Reward
+p_0:
+  - 1.
+  - help: "Portfolio value in the beginning."
+c_b:
+  - 0.99
+  - help: "Buying commission rate."
+c_s:
+  - 0.99
+  - help: "Selling commission rate."
+mu_iters:
+  - 20
+  - help: "Max iterations for mu (commission fee) to wait for convergence."
+results_folder:
+  - 'config_files'
+  - help: "Folder to save testing results."
+
+# Graph Neural Network
+gnn_K:
+  - 2
+  - help: "Chebyshev filter size for Chebyshev convolutional layer."
+gnn_num_layers:
+  - 1
+  - help: "Number of convolutional layers in GNN."
+gnn_lr:
+  - 0.01
+  - help: "Learning rate for GNN."
+
+# Autoencoder
+ae_bottleneck_size:
+  - 3
+  - help: "Dimension to which autoencoder compresses."
+ae_restricted:
+  - true
+  - help: "Should I use a restricted version of an autoencoder?"
+ae_split_method:
+  - 'percentage'
+  - help: "How to split dataset? (use 'percentage' or 'dates')"
+ae_train_perc:
+  - 0.4
+  - help: "Training percentage for autoencoder."
+ae_valid_perc:
+  - 0.4
+  - help: "Validation percentage for autoencoder."
+ae_test_perc:
+  - 0.2
+  - help: "Testing percentage for autoencoder."
+ae_epochs:
+  - 50
+  - help: "Max number of epochs to do during autoencoder training."
+ae_batch_size:
+  - 128
+  - help: "Batch size for the autoencoder training."
+ae_patience:
+  - 5
+  - help: "Patience for training the autoencoder."
+ae_save_plots:
+  - true
+  - help: "Should I save autoencoder train/test plots?"
+ae_training:
+  - true
+  - help: "Should I train autoencoder?"
+ae_load_model_num:
+  - 79
+  - help: "Experiment from which Autoencoder is loaded (if ae_training==False)."
+
+# Result saver
+rs_save_plots:
+  - true
+  - help: "Should I save the plots of the results?"
+rs_save_json:
+  - true
+  - help: "Should I save the results in the JSON file?"
+rs_stream_wandb:
+  - true
+  - help: "Should I stream the results to Weights and Biases?"
+result_folderpath:
+  - *_results_root_folder
+  - help: "Path to the folder for saving the results of the system."
