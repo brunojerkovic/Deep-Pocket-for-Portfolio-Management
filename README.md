@@ -1,4 +1,4 @@
-# Thesis_DeepPocket
+# Deep-Pocket-Portfolio-Optimization
 Implementation of the research paper for portfolio optimization with Graph neural networks and deep reinforcement learning.
 
 Farzan Soleymani, Eric Paquet,
