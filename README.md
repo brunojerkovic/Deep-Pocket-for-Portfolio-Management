@@ -1,7 +1,8 @@
 # Deep-Pocket-Portfolio-Optimization
 Implementation of the research paper for portfolio optimization (using graph neural networks and deep reinforcement learning) in Pytorch.
 
-Credits go to: \
+Credits of the research paper go to: \
+
 Farzan Soleymani, Eric Paquet, \
 Deep graph convolutional reinforcement learning for financial portfolio management – DeepPocket, \
 Expert Systems with Applications, \
